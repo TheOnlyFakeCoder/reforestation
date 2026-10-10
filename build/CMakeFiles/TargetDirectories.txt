@@ -1,0 +1,3 @@
+/home/mrcomputer/Documents/FerNando/stochastik/reforestation/build/CMakeFiles/simulation.dir
+/home/mrcomputer/Documents/FerNando/stochastik/reforestation/build/CMakeFiles/edit_cache.dir
+/home/mrcomputer/Documents/FerNando/stochastik/reforestation/build/CMakeFiles/rebuild_cache.dir
