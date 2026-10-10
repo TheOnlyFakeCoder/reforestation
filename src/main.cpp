@@ -1,4 +1,4 @@
-#include "reforestation.h"
+#include "../include/reforestation.h"
 #include "writer.h"
 #include <iostream>
 #include <vector> 
@@ -8,7 +8,7 @@ using namespace std;
 
 int main() {
     auto start = chrono::high_resolution_clock::now();
-    vector<Plant> plants = readFile("plants.bin");
+    vector<Plant> plants = readFile("../bins/plants.bin");
     for(int i = 0; i<plants.size(); i++){
         cout << plants[i] << endl;
     }

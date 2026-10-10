@@ -1,4 +1,4 @@
-#include "reforestation.h"
+#include "../include/reforestation.h"
 #include "writer.h"
 #include <iostream>
 #include <vector>
@@ -18,6 +18,6 @@ int main() {
         Plant("Prosopis laevigata", 26.5),
         Plant("Yucca filifera", 26)
     };
-    writeToFile(plants, "plants.bin");
+    writeToFile(plants, "../bins/plants.bin");
     return 0;
 }
