@@ -45,13 +45,15 @@ class Plant {
             << " | Per Hectare: " << plant.perHectare;
             return os;
         }
+
+        ~Plant() {}
 };
 
 class Polygon {
     private:
         char polygon[16];
         double areaHectare;
-        vector<int>quantityPlanted;
+        vector<int> quantityPlanted;
 
     public:
 
@@ -83,8 +85,72 @@ class Polygon {
             
             return os; // Mandatory: return the stream reference
         }
+
+        ~Polygon() {}
+};
+
+class Wasted {
+    private:
+        vector<Polygon> polygons;
+        vector<Plant> plants;
+        vector<vector<double>> wastePerPolygon;
+
+    public:
+
+        Wasted() : polygons({}), plants({}), wastePerPolygon({}) {}
+
+        Wasted(vector<Polygon> _polygons, vector<Plant> _plants): polygons(_polygons), plants(_plants){
+            wastePerPolygon = calculateWastePerPolygon();
+        }
+
+        vector<Polygon> getPolygons() const { return polygons; }
+        vector<Plant> getPlants() const { return plants; }
         
-        
+        vector<vector<double>> calculateWastePerPolygon() {
+            // Clear existing data so calling this twice doesn't duplicate rows
+            vector<vector<double>> localWasteMatrix;
+            
+            for (size_t i = 0; i < polygons.size(); i++) {
+                vector<double> perPolygon;
+                double area = polygons[i].getAreaHectare();
+                vector<int> quantity = polygons[i].getQuantityPlanted();
+
+                for (size_t j = 0; j < plants.size(); j++) {
+                    double idealQuantity = plants[j].getPerHectare() * area;
+                    double deficit = (idealQuantity - quantity[j])/idealQuantity;
+
+                    
+                    perPolygon.push_back(deficit*100); // Or apply percentage math here if preferred
+                }
+                localWasteMatrix.push_back(perPolygon);
+            }
+            
+            return localWasteMatrix;
+        }
+
+        friend ostream& operator<<(ostream& os, const Wasted& wasted) {
+            os << "=== Waste Analysis Per Polygon ===\n";
+            
+            for (size_t i = 0; i < wasted.wastePerPolygon.size(); i++) {
+                // Print the Polygon ID if available, fallback to index otherwise
+                if (i < wasted.polygons.size()) {
+                    os << "Polygon " << wasted.polygons[i].getPolygonId() << " -> [";
+                } else {
+                    os << "Polygon " << i << " -> [";
+                }
+
+                // Print the waste values for each plant in this polygon
+                for (size_t j = 0; j < wasted.wastePerPolygon[i].size(); j++) {
+                    os << wasted.wastePerPolygon[i][j];
+                    if (j + 1 < wasted.wastePerPolygon[i].size()) {
+                        os << ", ";
+                    }
+                }
+                os << "]\n";
+            }
+            
+            return os;
+        }
 };
 
 #endif
