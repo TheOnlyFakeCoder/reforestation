@@ -5,19 +5,59 @@
 
 using namespace std;
 
+std::vector<int> getColumn(const std::vector<std::vector<int>>& matrix, int columnIndex) {
+    std::vector<int> columnData;
+    
+    // Loop through every row (species) and grab the value at 'columnIndex'
+    for (const auto& row : matrix) {
+        columnData.push_back(row[columnIndex]);
+    }
+    
+    return columnData;
+}
+
 int main() {
     const vector<Plant>& plants= {
-        Plant("Agave lechuguilla", 26),
-        Plant("Agave salmiana", 26),
-        Plant("Agave scabra", 26),
-        Plant("Agave striata", 26),
-        Plant("Opuntia cantabrigiensis", 18),
-        Plant("Opuntia engelmani", 21),
-        Plant("Opuntia robusta", 18),
-        Plant("Opuntia streptacanta", 18),
-        Plant("Prosopis laevigata", 26.5),
-        Plant("Yucca filifera", 26)
+        Plant("Agave lechuguilla", 26, 42, {30,50}),
+        Plant("Agave salmiana", 26, 196,{30,50}),
+        Plant("Agave scabra", 26, 42, {15,25}),
+        Plant("Agave striata", 26, 42, {20,30}),
+        Plant("Opuntia cantabrigiensis", 18, 49,{20,30}),
+        Plant("Opuntia engelmani", 21, 38,{20,30}),
+        Plant("Opuntia robusta", 18, 73,{20,30}),
+        Plant("Opuntia streptacanta", 18, 64,{20,35}),
+        Plant("Prosopis laevigata", 26.5, 86,{25,30}),
+        Plant("Yucca filifera", 26, 26, {20,30})
     };
-    writeToFile(plants, "../bins/plants.bin");
+    writeToFilePlants(plants, "../bins/plants.bin");
+
+    std::vector<std::vector<int>> plantMatrix = {
+        // P1   P2   P3   P4   P5   P6   P7   P8   P9  P10  P11  P12  P13  P14  P15  P16  P17  P18  P19  P20  P21  P22  P23  P24  P25  P26  P27  P28  P29  P30
+        {  8,  58,  66,  10,  65,  67,  41,  32,  58,  47,  48,  36,  50,  35,  40,  70,  56,  45,  56,  69,  54,  75,  44,  10,  44,  72,  74,  67,  60,  34 }, // Agave lechuguilla[cite: 1, 2]
+        { 46, 263, 236,  52, 280, 306, 209, 252, 269, 209, 233, 182, 189, 186, 311, 290, 233, 204, 223, 285, 287, 292, 288,  59, 155, 291, 342, 309, 280, 195 }, // Agave salmiana[cite: 1, 2]
+        { 16,  47,  51,  15,  66,  63,  43,  46,  58,  47,  41,  43,  49,  38,  52,  55,  39,  34,  51,  57,  70,  60,  69,  15,  28,  73,  52,  67,  61,  56 }, // Agave scabra[cite: 1, 2]
+        { 16,  49,  50,   9,  61,  61,  49,  40,  53,  41,  37,  44,  28,  43,  62,  54,  46,  33,  48,  75,  62,  68,  51,  11,  31,  50,  55,  66,  53,  58 }, // Agave striata[cite: 1, 2]
+        { 11,  60,  71,  15,  92,  81,  48,  73,  57,  66,  48,  51,  43,  39,  68,  84,  71,  56,  50,  77,  89, 104,  69,  17,  39,  66,  70,  86,  76,  55 }, // Opuntia cantabrigiensis[cite: 1, 2]
+        { 14,  44,  56,  10,  54,  62,  52,  39,  58,  43,  40,  41,  33,  44,  63,  50,  45,  46,  48,  74,  58,  62,  60,  18,  39,  62,  76,  54,  68,  46 }, // Opuntia engelmannii[cite: 1, 2]
+        { 18, 111, 100,  18, 124, 118,  87,  86,  94,  96,  94,  68,  73,  73, 132, 105,  83,  82,  93, 107, 126, 109, 122,  17,  65, 125, 100, 120, 109,  91 }, // Opuntia robusta[cite: 1, 2]
+        { 12,  95,  78,  20, 114,  91,  60,  79,  91,  71,  65,  72,  76,  61,  89,  77,  81,  48,  90, 103, 109,  95, 100,  10,  50, 101, 100, 103,  85,  63 }, // Opuntia streptacantha[cite: 1, 2]
+        { 15,  98, 123,  23, 106, 133,  97,  91, 117, 108,  94,  67,  97,  74, 149, 121,  97,  95, 120, 104, 139, 125, 106,  39,  67, 122, 129, 141, 135,  86 }, // Prosopis laevigata[cite: 1, 2]
+        {  9,  39,  28,  11,  41,  45,  27,  26,  37,  29,  27,  19,  25,  23,  53,  40,  32,  17,  33,  25,  44,  43,  39,   8,  25,  31,  44,  33,  36,  23 }  // Yucca filifera[cite: 1, 2]
+    };
+
+    vector<Polygon> polygons;
+    vector<double> areas = {1.28,6.64,6.76,1.38,8,7.82,5.53,5.64,7.11,6.11,5.64,4.92,5.05,4.75,7.97,7.34,5.98,5.4,6.28,7.6,8,8,7.67,1.47,4.19,7.52,8,8,7.56,5.4};
+    char* polygonId[3];
+    for(int i = 0; i < areas.size();i++) {
+        vector<int> column = getColumn(plantMatrix, i);
+        double area = areas[i];
+
+        string idStr = "P" + to_string(i + 1);        
+        Polygon polygon = Polygon(idStr.c_str(), area, column);
+        polygons.push_back(polygon);
+    }
+
+    writeToFilePolygons(polygons, "../bins/polygons.bin");
     return 0;
 }
+
