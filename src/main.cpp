@@ -1,4 +1,5 @@
 #include "../include/reforestation.h"
+#include "competition.h"
 #include "writer.h"
 #include <iostream>
 #include <vector> 
@@ -42,6 +43,9 @@ int main() {
     Wasted waste = Wasted(polygons,plants);
 
     cout << waste << endl;
+
+    vector<vector<double>> coefficientsMatrix = getCompetitionMatrix(plants);
+    printMatrixElements(coefficientsMatrix);
 
     chrono::duration<double, milli> duration = end - start;
 
