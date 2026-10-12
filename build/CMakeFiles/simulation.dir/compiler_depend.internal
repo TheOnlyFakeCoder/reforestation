@@ -3,7 +3,9 @@
 
 CMakeFiles/simulation.dir/src/main.cpp.o
  /home/mrcomputer/Documents/FerNando/stochastik/reforestation/src/main.cpp
+ /home/mrcomputer/Documents/FerNando/stochastik/reforestation/include/matrix_handler.h
  /home/mrcomputer/Documents/FerNando/stochastik/reforestation/include/reforestation.h
+ /home/mrcomputer/Documents/FerNando/stochastik/reforestation/src/algorithm.h
  /home/mrcomputer/Documents/FerNando/stochastik/reforestation/src/competition.h
  /home/mrcomputer/Documents/FerNando/stochastik/reforestation/src/writer.h
  /usr/include/alloca.h

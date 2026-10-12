@@ -1,6 +1,7 @@
 #include "../include/reforestation.h"
 #include "competition.h"
 #include "writer.h"
+#include "algorithm.h"
 #include <iostream>
 #include <vector> 
 #include <chrono>
@@ -38,15 +39,21 @@ int main() {
     };
 
 
-    auto end = chrono::high_resolution_clock::now();
+
 
     Wasted waste = Wasted(polygons,plants);
 
     cout << waste << endl;
 
+
     vector<vector<double>> coefficientsMatrix = getCompetitionMatrix(plants);
     printMatrixElements(coefficientsMatrix);
+    vector<double> steadyStates = Algorithm().markovSteadyState(coefficientsMatrix);
 
+    cout << "\nSteady Values" << endl;
+    printVectorElements(steadyStates);
+    
+    auto end = chrono::high_resolution_clock::now();
     chrono::duration<double, milli> duration = end - start;
 
 

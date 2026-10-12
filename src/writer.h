@@ -8,6 +8,18 @@
 
 using namespace std;
 
+void writeSteadyValues(const vector<double>& steady, const string& filename) {
+    ofstream outFile(filename, ios::binary);
+
+    if(!outFile) {
+        cout << "Error opening file \n";
+        return;
+    }
+
+    size_t vectorSize = steady.size();
+    outFile.write(reinterpret_cast<const char*>(&vectorSize), sizeof(vectorSize));
+    outFile.write(reinterpret_cast<const char*>(steady.data()), vectorSize * sizeof(double));
+}
 
 void writeToFilePlants(const vector<Plant>& plants, const string& filename) {
     ofstream outFile(filename, ios::binary);

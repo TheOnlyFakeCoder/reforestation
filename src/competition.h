@@ -63,3 +63,11 @@ void printMatrixElements(const vector<vector<double>> matrix) {
         cout << "]\n";
     }
 }
+
+void printVectorElements(const vector<double> vec) {
+    cout << "[ ";
+    for (const auto& val: vec) {
+        cout << val << " ";
+    } 
+    cout << "]" << endl;
+}

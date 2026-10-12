@@ -1,5 +1,7 @@
 #include "../include/reforestation.h"
 #include "writer.h"
+#include "competition.h"
+#include "algorithm.h"
 #include <iostream>
 #include <vector>
 
@@ -58,6 +60,11 @@ int main() {
     }
 
     writeToFilePolygons(polygons, "../bins/polygons.bin");
+    vector<vector<double>> coefficientsMatrix = getCompetitionMatrix(plants);
+    vector<double> steadyStates = Algorithm().markovSteadyState(coefficientsMatrix);
+
+    writeSteadyValues(steadyStates, "../bins/steadyValues.bin");
+    
     return 0;
 }
 
