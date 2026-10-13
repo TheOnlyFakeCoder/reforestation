@@ -172,6 +172,7 @@ CMakeFiles/simulation.dir/src/main.cpp.o: \
  /usr/include/c++/16/bits/fstream.tcc \
  /home/mrcomputer/Documents/FerNando/stochastik/reforestation/src/algorithm.h \
  /home/mrcomputer/Documents/FerNando/stochastik/reforestation/src/../include/matrix_handler.h \
+ /home/mrcomputer/Documents/FerNando/stochastik/reforestation/src/map.h \
  /usr/include/c++/16/chrono /usr/include/c++/16/bits/chrono.h \
  /usr/include/c++/16/ratio /usr/include/c++/16/cstdint \
  /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/stdint.h \

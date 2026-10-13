@@ -2,6 +2,7 @@
 #include "competition.h"
 #include "writer.h"
 #include "algorithm.h"
+#include "map.h"
 #include <iostream>
 #include <vector> 
 #include <chrono>
@@ -47,17 +48,26 @@ int main() {
 
 
     vector<vector<double>> coefficientsMatrix = getCompetitionMatrix(plants);
-    printMatrixElements(coefficientsMatrix);
+    MatrixHandler().printMatrixElements(coefficientsMatrix);
     vector<double> steadyStates = Algorithm().markovSteadyState(coefficientsMatrix);
 
     cout << "\nSteady Values" << endl;
-    printVectorElements(steadyStates);
+    MatrixHandler().printVectorElements(steadyStates);
     
+    Algorithm().polygonsPenaltyPrint(polygons, coefficientsMatrix);
+
+    for(size_t i = 0; i < polygons.size(); i++) {
+        double sum = 0;
+        for(size_t j = 0; j < polygons[i].getQuantityPlanted().size(); j ++) {
+            sum += polygons[i].getQuantityPlanted()[j];
+        }
+        cout << "sum without coeficients P" <<to_string(i+1) << ": " << to_string(sum/polygons[i].getAreaHectare()) <<endl;
+    }
+
+    MatrixHandler().printMatrixElements(initializeUnfeasibleMap(polygons[0].getAreaHectare()));
+
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double, milli> duration = end - start;
-
-
-
     cout << "Execution Time in ms " << duration.count() << endl;
     return 0;
 }

@@ -118,4 +118,23 @@ class MatrixHandler {
             }
             return solution;
         }
+
+        template <typename T>
+        void printMatrixElements(const vector<vector<T>> matrix) {
+            for (const auto& row : matrix) {
+                cout << "[ ";
+                for (double val : row) {
+                    cout << val << " ";
+                }
+                cout << "]\n";
+            }
+        }
+
+        void printVectorElements(const vector<double> vec) {
+            cout << "[ ";
+            for (const auto& val: vec) {
+                cout << val << " ";
+            } 
+            cout << "]" << endl;
+        }
 };

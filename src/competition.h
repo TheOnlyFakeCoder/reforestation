@@ -54,20 +54,3 @@ vector<vector<double>> getCompetitionMatrix(vector<Plant> plants) {
     return coefficients;
 }
 
-void printMatrixElements(const vector<vector<double>> matrix) {
-    for (const auto& row : matrix) {
-        cout << "[ ";
-        for (double val : row) {
-            cout << val << " ";
-        }
-        cout << "]\n";
-    }
-}
-
-void printVectorElements(const vector<double> vec) {
-    cout << "[ ";
-    for (const auto& val: vec) {
-        cout << val << " ";
-    } 
-    cout << "]" << endl;
-}
